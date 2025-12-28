@@ -1,25 +1,24 @@
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
 
 const app = express();
 const PORT = 3001;
 
-// Middleware
+// Middleware - هاي المهمة!
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Data file path
 const DATA_FILE = path.join(__dirname, 'tasks.json');
 
-// Initialize tasks file if doesn't exist
+// Initialize tasks file
 if (!fs.existsSync(DATA_FILE)) {
   fs.writeFileSync(DATA_FILE, '[]');
 }
 
-// Helper function to read tasks
+// Helper functions
 const readTasks = () => {
   try {
     const data = fs.readFileSync(DATA_FILE, 'utf8');
@@ -29,12 +28,11 @@ const readTasks = () => {
   }
 };
 
-// Helper function to write tasks
 const writeTasks = (tasks) => {
   fs.writeFileSync(DATA_FILE, JSON.stringify(tasks, null, 2));
 };
 
-// ==================== CRUD ENDPOINTS ====================
+// Routes
 
 // GET all tasks
 app.get('/api/tasks', (req, res) => {
@@ -42,7 +40,7 @@ app.get('/api/tasks', (req, res) => {
   res.json(tasks);
 });
 
-// GET single task by ID
+// GET single task
 app.get('/api/tasks/:id', (req, res) => {
   const tasks = readTasks();
   const task = tasks.find(t => t.id === req.params.id);
@@ -54,14 +52,16 @@ app.get('/api/tasks/:id', (req, res) => {
   }
 });
 
-// POST create new task
+// POST create task
 app.post('/api/tasks', (req, res) => {
+  console.log('Received body:', req.body); // للتأكد
+  
   const tasks = readTasks();
   const newTask = {
     id: Date.now().toString(),
-    title: req.body.title,
-    description: req.body.description,
-    deadline: req.body.deadline,
+    title: req.body.title || 'Untitled',
+    description: req.body.description || '',
+    deadline: req.body.deadline || '',
     priority: req.body.priority || 'Medium',
     status: 'ToDo',
     createdAt: new Date().toISOString()
@@ -104,7 +104,7 @@ app.delete('/api/tasks/:id', (req, res) => {
   }
 });
 
-// Health check endpoint
+// Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'API is running' });
 });
@@ -112,5 +112,5 @@ app.get('/api/health', (req, res) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`✅ REST API server running on http://localhost:${PORT}`);
-  console.log(`📋 Endpoints available at http://localhost:${PORT}/api/tasks`);
+  console.log(`📋 Endpoints: http://localhost:${PORT}/api/tasks`);
 });
