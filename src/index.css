@@ -1,0 +1,181 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+ * TASK MANAGER DESIGN SYSTEM
+ * 
+ * Color palette: Turquoise (primary), Beige (accent), Grey (neutral)
+ * Typography: Clean, modern, highly readable
+ * All colors in HSL format
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* Background & Foreground */
+    --background: 180 15% 98%;
+    --foreground: 200 20% 15%;
+
+    /* Card surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 200 20% 15%;
+
+    /* Popover surfaces */
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 20% 15%;
+
+    /* Primary: Medium Turquoise */
+    --primary: 174 50% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: Light Turquoise */
+    --secondary: 176 35% 92%;
+    --secondary-foreground: 174 50% 30%;
+
+    /* Muted: Light Grey */
+    --muted: 200 10% 94%;
+    --muted-foreground: 200 10% 45%;
+
+    /* Accent: Warm Beige */
+    --accent: 35 40% 90%;
+    --accent-foreground: 35 30% 25%;
+
+    /* Destructive: Soft Red */
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders & Input */
+    --border: 200 15% 88%;
+    --input: 200 15% 88%;
+    --ring: 174 50% 42%;
+
+    --radius: 0.75rem;
+
+    /* Priority Colors */
+    --priority-high: 0 70% 55%;
+    --priority-high-bg: 0 70% 96%;
+    --priority-medium: 35 80% 50%;
+    --priority-medium-bg: 35 80% 94%;
+    --priority-low: 174 50% 42%;
+    --priority-low-bg: 174 50% 94%;
+
+    /* Status Colors */
+    --status-todo: 200 10% 45%;
+    --status-completed: 150 60% 40%;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(200 20% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(200 20% 15% / 0.08), 0 2px 4px -2px hsl(200 20% 15% / 0.05);
+    --shadow-lg: 0 10px 15px -3px hsl(200 20% 15% / 0.08), 0 4px 6px -4px hsl(200 20% 15% / 0.05);
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 200 10% 30%;
+    --sidebar-primary: 174 50% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 176 35% 92%;
+    --sidebar-accent-foreground: 174 50% 30%;
+    --sidebar-border: 200 15% 88%;
+    --sidebar-ring: 174 50% 42%;
+  }
+
+  .dark {
+    --background: 200 20% 8%;
+    --foreground: 180 10% 95%;
+
+    --card: 200 18% 12%;
+    --card-foreground: 180 10% 95%;
+
+    --popover: 200 18% 12%;
+    --popover-foreground: 180 10% 95%;
+
+    --primary: 174 55% 50%;
+    --primary-foreground: 200 20% 8%;
+
+    --secondary: 200 15% 18%;
+    --secondary-foreground: 174 40% 75%;
+
+    --muted: 200 15% 18%;
+    --muted-foreground: 200 10% 60%;
+
+    --accent: 35 25% 20%;
+    --accent-foreground: 35 40% 85%;
+
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 200 15% 20%;
+    --input: 200 15% 20%;
+    --ring: 174 55% 50%;
+
+    --priority-high: 0 65% 50%;
+    --priority-high-bg: 0 40% 15%;
+    --priority-medium: 35 70% 45%;
+    --priority-medium-bg: 35 40% 15%;
+    --priority-low: 174 50% 45%;
+    --priority-low-bg: 174 30% 15%;
+
+    --status-todo: 200 10% 55%;
+    --status-completed: 150 50% 50%;
+
+    --sidebar-background: 200 18% 10%;
+    --sidebar-foreground: 180 10% 90%;
+    --sidebar-primary: 174 55% 50%;
+    --sidebar-primary-foreground: 200 20% 8%;
+    --sidebar-accent: 200 15% 18%;
+    --sidebar-accent-foreground: 174 40% 75%;
+    --sidebar-border: 200 15% 20%;
+    --sidebar-ring: 174 55% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+@layer utilities {
+  /* Task priority badges */
+  .priority-high {
+    @apply bg-[hsl(var(--priority-high-bg))] text-[hsl(var(--priority-high))] border-[hsl(var(--priority-high)/0.3)];
+  }
+  
+  .priority-medium {
+    @apply bg-[hsl(var(--priority-medium-bg))] text-[hsl(var(--priority-medium))] border-[hsl(var(--priority-medium)/0.3)];
+  }
+  
+  .priority-low {
+    @apply bg-[hsl(var(--priority-low-bg))] text-[hsl(var(--priority-low))] border-[hsl(var(--priority-low)/0.3)];
+  }
+
+  /* Task completed state */
+  .task-completed {
+    @apply line-through opacity-60;
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    @apply hover:shadow-lg hover:-translate-y-0.5 transition-smooth;
+  }
+
+  /* Glass effect */
+  .glass {
+    @apply bg-card/80 backdrop-blur-sm;
+  }
+}
