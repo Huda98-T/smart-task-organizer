@@ -1,4 +1,11 @@
 git add docs/jira-setup.md
+git commit -m "project : Add 4 scrums "
+git push origin feature/shaimaa-branch
+
+
+
+
+git add docs/jira-setup.md
 git commit -m "SCRUM-1: Add 4 task "
 git push origin feature/shaimaa-branch
 
